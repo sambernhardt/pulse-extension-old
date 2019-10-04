@@ -23,7 +23,7 @@
         "https://pulse-staging.kickup.co/switch_district/"
       ],
       "js": [
-        "src/inject/inject.js"
+        "src/inject/switchDistrict.js"
       ]
     },
     {
