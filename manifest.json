@@ -2,7 +2,7 @@
   "name": "Pulse Extension",
   "version": "0.0.1",
   "manifest_version": 2,
-  "description": "This extension was created with the awesome extensionizr.com",
+  "description": "A power user toolkit",
   "homepage_url": "http://extensionizr.com",
   "icons": {
     "16": "icons/icon16.png",
