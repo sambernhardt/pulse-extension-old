@@ -208,7 +208,7 @@ function mountStarred() {
 }
 
 // Recent
-function addToRecent(title, districts) {
+function addToRecent(title) {
   chrome.storage.sync.get(['recent'], function(result) {
     var list = result.recent ? [...result.recent] : [];
 
@@ -219,7 +219,7 @@ function addToRecent(title, districts) {
 				return true
 			}
 		})
-		if (existing) {
+		if (existing.length > 0) {
 			list.splice(index, 1);
 		}
 
@@ -228,16 +228,19 @@ function addToRecent(title, districts) {
     }
 
     list.push({title: title})
+    // console.log(list);
 
     chrome.storage.sync.set({
       recent: list
     });
+    mountRecent()
   });
 }
 function mountRecent() {
   var recentList = document.querySelector("#recent-list");
 
   chrome.storage.sync.get(['recent'], function(result) {
+    console.log(result.recent);
     recentList.innerHTML = "";
     if (!result.recent) return;
 
@@ -254,8 +257,6 @@ function mountRecent() {
     clear.addEventListener("click", function() {
       chrome.storage.sync.set({
         recent: []
-      }, function() {
-        mountRecent()
       });
     })
 
@@ -302,7 +303,9 @@ function createItem(text, config, callback) {
     option.el.selected = true;
     submitButton.click();
     addToRecent(text)
-    callback();
+    if (callback) {
+      callback();
+    }
   })
 
   return listItem
