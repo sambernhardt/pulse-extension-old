@@ -50,8 +50,19 @@ html.innerHTML = `
 			top: 34px;
 			z-index: 2; */
 			box-shadow: 0 0 20px rgba(0,0,0,.15);
+      border: none;
+    }
+    
+    #search-results.open {
 			border: 1px solid #e8e8e8;
 		}
+
+    .empty-message {
+			padding: 8px 12px;
+			margin-bottom: 0;
+			font-size: 16px;
+			font-weight: 400;
+    }
 
 		.custom-item {
 			cursor: pointer;
@@ -108,6 +119,7 @@ search.addEventListener("keyup", function(e) {
   if (query.trim() == "") return;
 
   var results = [];
+  var count = 0;
   districts.forEach(district => {
     if (district.title.toLowerCase().indexOf(query.toLowerCase()) > -1) {
       var result = createItem(district.title, {
@@ -116,8 +128,19 @@ search.addEventListener("keyup", function(e) {
         searchResults.innerHTML = "";
       })
       searchResults.appendChild(result)
+      count++;
     }
   })
+  if (count === 0) {
+    searchResults.innerHTML = "<div class='empty-message'>No results found.</div>"; 
+  }
+})
+search.addEventListener("focus", function(e) {searchResults.classList.add("open")})
+search.addEventListener("blur", function(e) {
+  // if (!e.target.classList.contains("custom-item")) {
+  //   searchResults.innerHTML = "";
+  //   searchResults.classList.remove("open");
+  // }
 })
 document.body.addEventListener("keyup", function(e) {
 	e.preventDefault();
@@ -177,9 +200,7 @@ function removeFromStarred(title) {
 
     chrome.storage.sync.set({
       starred: list
-    }, function() {
-      mountStarred()
-    });
+    }, mountStarred);
   });
 }
 function mountStarred() {
@@ -273,9 +294,10 @@ function mountRecent() {
     clear.classList.add("clear");
     clear.innerHTML = "Clear";
     clear.addEventListener("click", function() {
+      console.log("Clearing")
       chrome.storage.sync.set({
         recent: []
-      });
+      }, mountRecent)
     })
 
     recentList.append(clear);
