@@ -146,12 +146,15 @@ document.body.addEventListener("keyup", function(e) {
 // Starred
 function addToStarred(title) {
   chrome.storage.sync.get(['starred'], function(result) {
-    var list = result.starred || result.starred.length > 0 ? [...result.starred] : [];
+    let list = [];
+    if (result.starred) {
+      list = result.starred.length > 0 ? [...result.starred] : [];
+    }
 
 		// check if item exists in list
-		var existing = list.filter(item => {
-			if (item.title == title) {
-				console.log(title);
+		list = list.filter(item => {
+      if (item.title !== title) {
+        return true
 			}
 		})
 
@@ -206,9 +209,22 @@ function mountStarred() {
     // starredList.append(clear)
   });
 }
+function addDefaultStarred() {
+  chrome.storage.sync.get(['starred'], function(result) {
+    if (result.starred) {
+      if (result.starred.length === 0) {
+        chrome.storage.sync.set({
+          starred: [{
+            title: "Anonymous District"
+          }]
+        }, mountStarred);
+      }
+    }
+  });
+}
 
 // Recent
-function addToRecent(title) {
+function addToRecent(title, config) {
   chrome.storage.sync.get(['recent'], function(result) {
     var list = result.recent ? [...result.recent] : [];
 
@@ -233,14 +249,16 @@ function addToRecent(title) {
     chrome.storage.sync.set({
       recent: list
     });
-    mountRecent()
+    if (!config.stopMount) {
+      mountRecent()
+    }
   });
 }
 function mountRecent() {
   var recentList = document.querySelector("#recent-list");
 
   chrome.storage.sync.get(['recent'], function(result) {
-    console.log(result.recent);
+    // console.log(result.recent);
     recentList.innerHTML = "";
     if (!result.recent) return;
 
@@ -302,7 +320,7 @@ function createItem(text, config, callback) {
     var option = districts.filter(district => district.title === text)[0];
     option.el.selected = true;
     submitButton.click();
-    addToRecent(text)
+    addToRecent(text, {stopMount: true})
     if (callback) {
       callback();
     }
@@ -314,4 +332,5 @@ function createItem(text, config, callback) {
 // Start
 mountRecent();
 mountStarred();
+addDefaultStarred();
 search.focus();
