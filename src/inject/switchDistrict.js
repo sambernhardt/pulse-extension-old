@@ -258,9 +258,11 @@ function addDefaultStarred() {
 }
 
 // Recent
-function addToRecent(title, config) {
-  chrome.storage.sync.get(['recent'], function(result) {
+async function addToRecent(title, config) {
+  await chrome.storage.sync.get(['recent'], function(result) {
     var list = result.recent ? [...result.recent] : [];
+
+    console.log(result)
 
 		var index = 0;
 		var existing = list.filter((item, i) => {
@@ -354,8 +356,8 @@ function createItem(text, config, callback) {
   listItem.addEventListener("click", function() {
     var option = districts.filter(district => district.title === text)[0];
     option.el.selected = true;
-    submitButton.click();
     addToRecent(text, {stopMount: true})
+    submitButton.click();
     if (callback) {
       callback();
     }

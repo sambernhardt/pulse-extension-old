@@ -1,3 +1,4 @@
+var origin = window.location.origin; 
 
 document.body.addEventListener("keyup", function(e) {
 
@@ -5,29 +6,24 @@ document.body.addEventListener("keyup", function(e) {
 
   switch(e.key) {
     case "d":
-      window.location.href = "https://pulse-staging.kickup.co/directory/people"
+      window.location.href = origin + "/directory/people"
       break;
     case "e":
-      window.location.href = "https://pulse-staging.kickup.co/events/browse"
+      window.location.href = origin + "/events/browse"
       break;
     case "c":
-        window.location.href = "https://pulse-staging.kickup.co/campaigns/"
+        window.location.href = origin + "/campaigns/"
         break;
     case "h":
-        window.location.href = "https://pulse-staging.kickup.co/"
+        window.location.href = origin + "/"
         break;
     case "r":
-      window.location.href = "https://pulse-staging.kickup.co/reports/browse/"
+      window.location.href = origin + "/reports/browse/"
       break;
     case "s":
-      window.location.href = "https://pulse-staging.kickup.co/switch_district/"
+      window.location.href = origin + "/switch_district/"
       break;
     default:
       break;
   }
 })
-
-
-// function showMessage() {
-//   var div
-// }

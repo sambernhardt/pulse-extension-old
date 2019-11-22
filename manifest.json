@@ -20,6 +20,7 @@
   "content_scripts": [
     {
       "matches": [
+        "https://pulse.kickup.co/switch_district/",
         "https://pulse-staging.kickup.co/switch_district/"
       ],
       "js": [
@@ -28,7 +29,8 @@
     },
     {
       "matches": [
-        "https://pulse-staging.kickup.co/*"
+        "https://pulse-staging.kickup.co/*",
+        "https://pulse.kickup.co/*"
       ],
       "js": [
         "src/inject/keystrokes.js"
