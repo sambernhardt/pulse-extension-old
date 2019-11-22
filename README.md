@@ -17,7 +17,7 @@ Download https://github.com/sambernhardt/pulse-extension/archive/master.zip
 
 ---
 
-### Features
+## Features
 #### Keyboard Shortcuts ⚡️
 - D = Directory  
 - E = Events  
