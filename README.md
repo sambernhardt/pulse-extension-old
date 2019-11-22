@@ -28,4 +28,4 @@ Download https://github.com/sambernhardt/pulse-extension/archive/master.zip
 #### Switch District ⚡️
 - Auto-focus search bar
 - Recent selections
-- Save districts by marking them with a ⭐️
+- Mark districts with a star to save for later
