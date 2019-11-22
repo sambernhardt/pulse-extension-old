@@ -51,10 +51,14 @@ html.innerHTML = `
 			z-index: 2; */
 			box-shadow: 0 0 20px rgba(0,0,0,.15);
       border: none;
+      height: 0px;
+      overflow: hidden;
     }
     
     #search-results.open {
-			border: 1px solid #e8e8e8;
+      border: 1px solid #e8e8e8;
+      height: auto;
+      overflow: initial;
 		}
 
     .empty-message {
@@ -118,6 +122,10 @@ search.addEventListener("keyup", function(e) {
   var query = e.target.value;
   if (query.trim() == "") return;
 
+  if (!searchResults.classList.contains("open")) {
+    searchResults.classList.add("open");
+  }
+
   var results = [];
   var count = 0;
   districts.forEach(district => {
@@ -135,7 +143,7 @@ search.addEventListener("keyup", function(e) {
     searchResults.innerHTML = "<div class='empty-message'>No results found.</div>"; 
   }
 })
-search.addEventListener("focus", function(e) {searchResults.classList.add("open")})
+// search.addEventListener("focus", function(e) {searchResults.classList.add("open")})
 search.addEventListener("blur", function(e) {
   // if (!e.target.classList.contains("custom-item")) {
   //   searchResults.innerHTML = "";
@@ -163,6 +171,11 @@ document.body.addEventListener("keyup", function(e) {
 				listItem.previousSibling.focus();
 			}
 		}
+	} else if (e.key == "Escape") {
+		var active = document.activeElement;
+    active.blur();
+    searchResults.classList.remove("open");
+    
 	}
 })
 
