@@ -1,5 +1,6 @@
 // Initialize
 var formGroup = document.querySelector("form");
+console.log(formGroup);
 formGroup.style.display = "none";
 var container = document.querySelector(".block-flat");
 var dropdown = document.querySelector("#id_new_district");
