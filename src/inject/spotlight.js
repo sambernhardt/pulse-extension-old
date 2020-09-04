@@ -219,7 +219,11 @@ const initialize = () => {
       return;
     } else {
       resultsContainer.classList.add('hasResults');
-      let results = shortcuts.filter(i => i.label.toLowerCase().includes(search));
+      let results = shortcuts.filter(i => {
+        if (i.label.toLowerCase().includes(search)) return true;
+        if (i.sublabel && i.sublabel.toLowerCase().includes(search)) return true;
+        return false;
+      });
       results = results.sort((a, b) => (a.label < b.label) ? -1 : (a.label > b.label) ? 1 : 0);
       if (!results.length) {
         resultsContainer.appendChild(createEmptyState());
