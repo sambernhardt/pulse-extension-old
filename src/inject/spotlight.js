@@ -209,8 +209,8 @@ const initialize = () => {
   };
 
   spotlightInput.addEventListener('keyup', e => {
-    if (e.key === 'Shift' || e.key === "Meta" || e.key === 'Alt') return;
-    
+    if (e.key === 'Shift' || e.key === "Meta" || e.key === 'Alt' || e.key === 'Tab') return;
+
     const search = e.target.value.toLowerCase();
     resultsContainer.innerHTML = '';
     resultsContainer.classList.remove('hasResults');
@@ -229,23 +229,23 @@ const initialize = () => {
         resultsContainer.appendChild(result);
         navigableElements = Array.from(document.querySelectorAll('.keyboard-navigable'));
       })
-      fetch(origin + `/impersonate/search/?q=${search.replace(' ', '+')}`).then(res => res.text()).then(html => {
-        var parser = new DOMParser();
-        var doc = parser.parseFromString(html, 'text/html');
-        var results = Array.from(doc.querySelectorAll('li a')).filter(el => el.href.includes('impersonate')).map(el => {
-          return {
-            label: el.innerText,
-            sublabel: 'Impersonate',
-            url: '/' + el.href.replace(el.baseURI, ''),
-            icon: 'user-secret'
-          }
-        });
-        results.forEach(r => {
-          const result = createResult(r);
-          resultsContainer.appendChild(result);
-          navigableElements = Array.from(document.querySelectorAll('.keyboard-navigable'));
-        })
-      });
+      // fetch(origin + `/impersonate/search/?q=${search.replace(' ', '+')}`).then(res => res.text()).then(html => {
+      //   var parser = new DOMParser();
+      //   var doc = parser.parseFromString(html, 'text/html');
+      //   var results = Array.from(doc.querySelectorAll('li a')).filter(el => el.href.includes('impersonate')).map(el => {
+      //     return {
+      //       label: el.innerText,
+      //       sublabel: 'Impersonate',
+      //       url: '/' + el.href.replace(el.baseURI, ''),
+      //       icon: 'user-secret'
+      //     }
+      //   });
+      //   results.forEach(r => {
+      //     const result = createResult(r);
+      //     resultsContainer.appendChild(result);
+      //     navigableElements = Array.from(document.querySelectorAll('.keyboard-navigable'));
+      //   })
+      // });
     }
   });
 };
