@@ -17,11 +17,7 @@ Download https://github.com/sambernhardt/pulse-extension/archive/master.zip
 
 ## Features
 #### Keyboard Shortcuts ⚡️
-- d = Directory  
-- e = Events  
-- h = Home  
-- r = Reports  
-- s = Switch Districts
+- / - Quick Search
 
 #### Switch District ⚡️
 - Auto-focus search bar
