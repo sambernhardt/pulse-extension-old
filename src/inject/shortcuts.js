@@ -108,21 +108,21 @@ const impersonate = [
 ];
 
 const evaluations = [
-  {
-    label: 'Sample Online/Blended Teacher Evaluation Cycle',
-    sublabel: 'Evaluations',
-    url: '/evaluations/13/roster/',
-    icon: 'comment-alt'
-  }
+  // {
+  //   label: 'Sample Online/Blended Teacher Evaluation Cycle',
+  //   sublabel: 'Evaluations',
+  //   url: '/evaluations/13/roster/',
+  //   icon: 'comment-alt'
+  // }
 ];
 
 const events = [
-  {
-    label: 'Blended Learning 101 Workshop',
-    sublabel: 'Events',
-    url: '/events/browse/sJYc2yNxxqgPXK8eYkDq6D',
-    icon: 'calendar-alt'
-  }
+  // {
+  //   label: 'Blended Learning 101 Workshop',
+  //   sublabel: 'Events',
+  //   url: '/events/browse/sJYc2yNxxqgPXK8eYkDq6D',
+  //   icon: 'calendar-alt'
+  // }
 ];
 
 const shortcuts = [
