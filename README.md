@@ -1,5 +1,7 @@
 # Pulse Extension ⚡️
 
+![preview](preview.gif)
+
 ### Installation
 
 #### 1. Download/clone this repository  
