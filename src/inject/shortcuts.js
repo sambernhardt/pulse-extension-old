@@ -2,87 +2,104 @@ const apps = [
   {
     label: 'Home',
     url: '/',
-    icon: 'home'
+    icon: 'home',
+    type: 'navigate'
   },
   {
     label: 'Reports',
     url: '/reports',
-    icon: 'file-alt'
+    icon: 'file-alt',
+    type: 'navigate'
   },
   {
     label: 'Events',
     url: '/events',
-    icon: 'calendar-alt'
+    icon: 'calendar-alt',
+    type: 'navigate'
   },
   {
     label: 'Coaching Logs',
     url: '/coaching',
-    icon: 'users'
+    icon: 'users',
+    type: 'navigate'
   },
   {
     label: 'Walkthroughs',
     url: '/walkthroughs',
-    icon: 'clipboard'
+    icon: 'clipboard',
+    type: 'navigate'
   },
   {
     label: 'Evaluations',
     url: '/evaluations',
-    icon: 'comment-alt'
+    icon: 'comment-alt',
+    type: 'navigate'
   },
   {
     label: 'My Account',
     url: '/accounts/manage',
-    icon: 'user-circle'
+    icon: 'user-circle',
+    type: 'navigate'
   },
   {
     label: 'Directory',
     url: '/directory',
-    icon: 'address-book'
+    icon: 'address-book',
+    type: 'navigate'
   },
   {
     label: 'Campaigns',
     url: '/campaigns',
-    icon: 'envelope'
+    icon: 'envelope',
+    type: 'navigate'
   },
   {
     label: 'Frameworks',
     url: '/frameworks',
-    icon: 'sitemap'
+    icon: 'sitemap',
+    type: 'navigate'
   },
   {
     label: 'Shared Links',
     url: '/reports/manage/links',
-    icon: 'share'
+    icon: 'share',
+    type: 'navigate'
   },
   {
     label: 'Attributes',
     url: '/manage/attributes',
-    icon: 'tags'
+    icon: 'tags',
+    type: 'navigate'
   },
   {
     label: 'Goals',
     url: '/goals',
-    icon: 'flag'
+    icon: 'flag',
+    type: 'navigate'
   },
   {
     label: 'Surveys',
     url: '/manage/surveys',
-    icon: 'clipboard'
+    icon: 'clipboard',
+    type: 'navigate'
   },
   {
     label: 'Auth Tokens',
     url: '/manage/auth-tokens',
-    icon: 'coins'
+    icon: 'coins',
+    type: 'navigate'
   },
   {
     label: 'Switch District',
     url: '/switch_district',
-    icon: 'building'
+    icon: 'building',
+    type: 'navigate'
   },
   {
     label: 'Stop Impersonating',
     url: '/impersonate/stop',
-    icon: 'theater-masks'
+    icon: 'theater-masks',
+    type: 'navigate'
   },
 ];
 
@@ -91,19 +108,29 @@ const impersonate = [
     label: 'Brock Boulder',
     sublabel: 'Impersonate',
     url: '/impersonate/12358',
-    icon: 'user-secret'
+    icon: 'user-secret',
+    type: 'navigate'
   },
   {
     label: 'Bill Nye',
     sublabel: 'Impersonate',
     url: '/impersonate/4340',
-    icon: 'user-secret'
+    icon: 'user-secret',
+    type: 'navigate'
   },
   {
     label: 'Ash Catchem',
     sublabel: 'Impersonate',
     url: '/impersonate/12357',
-    icon: 'user-secret'
+    icon: 'user-secret',
+    type: 'navigate'
+  },
+  {
+    label: 'Admin User',
+    sublabel: 'Impersonate',
+    url: '/impersonate/53411',
+    icon: 'user-secret',
+    type: 'navigate'
   },
 ];
 
@@ -125,9 +152,28 @@ const events = [
   // }
 ];
 
+const actions = [
+  {
+    label: 'Open on staging',
+    icon: 'link',
+    type: 'open_staging_URL'
+  },
+  {
+    label: 'Open locally',
+    icon: 'link',
+    type: 'open_local_URL'
+  },
+  {
+    label: 'Log in modal',
+    icon: 'lock',
+    type: 'modal_login'
+  },
+];
+
 const shortcuts = [
   ...apps,
   ...impersonate,
   ...evaluations,
   ...events,
+  ...actions,
 ];

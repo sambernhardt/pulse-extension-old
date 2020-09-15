@@ -38,6 +38,7 @@ const style = `
     max-width: 100%;
     overflow: hidden;
     opacity: 0;
+    pointer-events: none;
   }
   .sl-card .spotlightInput {
     border: none;
@@ -53,6 +54,7 @@ const style = `
   }
   .sl-container.active .sl-card {
     opacity: 1;
+    pointer-events: all;
   }
   .results.hasResults {
     padding: 4px;
@@ -89,6 +91,10 @@ const style = `
     font-size: 14px;
     color: var(--body2);
     font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    width: 340px;
   }
   .result:focus {
     background: var(--highlight);
@@ -104,6 +110,23 @@ const style = `
     border-radius: 12px;
     color: var(--body2);
   }
+  #login_modal_container {
+    position: fixed;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  #login_modal {
+    width: 400px;
+    height: 400px;
+    border-radius: 8px;
+    border: 1px solid #efefef;
+    box-shadow: 0 0 20px rgba(0, 0, 0, .1);
+    background: white;
+  }
 `;
 
 const spotlightContainer = document.createElement('div');
@@ -111,7 +134,7 @@ spotlightContainer.classList.add('sl-container');
 spotlightContainer.innerHTML = `
   <style>${style}</style>
   <div class="sl-card">
-    <input type="text" placeholder="Search" class="spotlightInput keyboard-navigable">
+    <input type="text" placeholder="What can I help you find?" class="spotlightInput keyboard-navigable">
     <div class="results">
     </div>
   </div>
@@ -170,17 +193,41 @@ const initialize = () => {
     }
   })
 
-  function navigate(link) {
+  function navigate({ url }) {
     resultsContainer.innerHTML = '';
     resultsContainer.classList.remove('hasResults');
     wrapper.classList.remove('active');
     spotlightInput.value = '';
-    window.location.href = origin + link;
+    window.location.href = origin + url;
+  }
+
+  function openURL({ url }) {
+    wrapper.classList.remove('active');
+    resultsContainer.innerHTML = '';
+    window.open(url, '_blank');
+  }
+
+  function modalLogin() {
+    wrapper.classList.remove('active');
+    resultsContainer.innerHTML = '';
+
+    const iframeContainer = document.createElement('div');
+    iframeContainer.id = 'login_modal_container';
+    iframeContainer.addEventListener('click', () => iframeContainer.remove());
+
+    const iframe = document.createElement('iframe');
+    iframe.id = 'login_modal';
+    iframe.src = 'http://localhost:3000/accounts/login/';
+    
+    iframeContainer.appendChild(iframe);
+    document.body.appendChild(iframeContainer);
   }
 
   const createResult = (r) => {
     const result = document.createElement('div');
     result.classList.add('result', 'keyboard-navigable');
+    let action;
+
     result.tabIndex = '0';
     result.innerHTML = `
       <i class="fa fa-${r.icon} spotlight-icon"></i>
@@ -191,12 +238,49 @@ const initialize = () => {
         ${r.sublabel ? `<div class="sl-sublabel">${r.sublabel}</div>` : ''}
       </div>
     `;
+
+    switch (r.type) {
+      case 'navigate':
+        action = navigate;
+        break;
+      case 'open_staging_URL': 
+        r = { ...r, url: 'https://pulse-staging.kickup.co' + window.location.pathname }
+        result.innerHTML = `
+          <i class="fa fa-${r.icon} spotlight-icon"></i>
+          <div class="text-container">
+            <div class="sl-label">
+              ${r.label}
+            </div>
+            <div class="sl-sublabel">${r.url}</div>
+          </div>
+        `;  
+        action = openURL;
+        break;
+      case 'open_local_URL': 
+        r = { ...r, url: 'http://localhost:3000' + window.location.pathname }
+        result.innerHTML = `
+          <i class="fa fa-${r.icon} spotlight-icon"></i>
+          <div class="text-container">
+            <div class="sl-label">
+              ${r.label}
+            </div>
+            <div class="sl-sublabel">${r.url}</div>
+          </div>
+        `;  
+        action = openURL;
+        break;
+      case 'modal_login': 
+        action = modalLogin;
+        break;
+      default:
+        break;
+    }
     result.addEventListener('keyup', e => {
       if (e.key == 'Enter') {
-        navigate(r.url);
+        action(r);
       }
     });
-    result.addEventListener('click', () => navigate(r.url));
+    result.addEventListener('click', () => action(r));
     JSON.stringify();
     return result;
   };
