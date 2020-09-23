@@ -10,10 +10,6 @@
     "128": "icons/icon128.png"
   },
   "default_locale": "en",
-  "background": {
-    "page": "src/bg/background.html",
-    "persistent": true
-  },
   "permissions": [
     "storage"
   ],
@@ -28,14 +24,12 @@
     },
     {
       "matches": [
-        "https://pulse.kickup.co/",
-        "https://pulse-staging.kickup.co/",
+        "https://pulse.kickup.co/*",
+        "https://pulse-staging.kickup.co/*",
         "*://localhost/*"
       ],
       "js": [
-        "src/inject/keystrokes.js",
-        "src/inject/shortcuts.js",
-        "src/inject/spotlight.js"
+        "src/inject/main.js"
       ]
     }
   ]
